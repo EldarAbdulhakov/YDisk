@@ -54,7 +54,6 @@ public class DownloadFileWithContentTest extends BaseTest {
                 .when()
                 .get(downloadHref)
                 .then()
-                .log().all()
                 .statusCode(200)
                 .extract()
                 .asString();

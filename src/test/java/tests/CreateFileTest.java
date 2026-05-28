@@ -23,6 +23,8 @@ public class CreateFileTest extends BaseTest {
                 .put(href)
                 .then()
                 .statusCode(201);
+
+        registerCreatedResource(FILE_NAME);
     }
 
     @Test
@@ -42,6 +44,8 @@ public class CreateFileTest extends BaseTest {
                 .put(href)
                 .then()
                 .statusCode(201);
+
+        registerCreatedResource(FOLDER_NAME);
     }
 
     @Test

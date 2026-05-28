@@ -6,9 +6,12 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.awaitility.Awaitility;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import utils.PropertyProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,33 +50,31 @@ public abstract class BaseTest {
                 .setContentType(ContentType.JSON)
                 .setBaseUri(CONFIG.getBaseUrl())
                 .addHeader("Authorization", "OAuth " + CONFIG.getToken())
-//                .log(LogDetail.ALL)
                 .build();
 
         requestSpecWithoutAuth = new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setBaseUri(CONFIG.getBaseUrl())
-//                .log(LogDetail.ALL)
                 .build();
     }
 
-//    @BeforeEach
-//    protected void initTestContent() {
-//        createdResources = new ArrayList<>();
-//    }
-//
-//    @AfterEach
-//    protected void cleaUp() {
-//        for (String folderName : createdResources) {
-//            if (isResourceExists(folderName)) {
-//                deleteResourcePermanently(folderName);
-//            } else
-//
-//                deleteFolderFromTrash(folderName);
-//
-//        }
-//        createdResources.clear();
-//    }
+    @BeforeEach
+    protected void initTestContent() {
+        createdResources = new ArrayList<>();
+    }
+
+    @AfterEach
+    protected void cleaUp() {
+        for (String folderName : createdResources) {
+            if (isResourceExists(folderName)) {
+                deleteResourcePermanently(folderName);
+            }
+            if (isResourceExistsInTrash(folderName)) {
+                deleteFolderFromTrash(folderName);
+            }
+        }
+        createdResources.clear();
+    }
 
     protected void registerCreatedResource(String resource) {
         createdResources.add(resource);
@@ -86,7 +87,7 @@ public abstract class BaseTest {
                 .when()
                 .put(RESOURCE_PATH);
 
-//        registerCreatedResource(folderName);
+        registerCreatedResource(folderName);
     }
 
     protected void deleteFolderToTrash(String folderName) {
@@ -112,7 +113,8 @@ public abstract class BaseTest {
                             .when()
                             .get(operationUrl)
                             .then()
-                            .extract().path("status");
+                            .extract()
+                            .path("status");
                     return "success".equals(status);
                 });
     }
@@ -123,7 +125,8 @@ public abstract class BaseTest {
                 .when()
                 .get(RESOURCE_TRASH_PATH)
                 .then()
-                .extract().path("_embedded.items");
+                .extract()
+                .path("_embedded.items");
 
         return items.stream()
                 .filter(item -> folderName.equals(item.get("name")))
@@ -136,23 +139,13 @@ public abstract class BaseTest {
         RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", resourcePath)
+                .queryParam("permanently", "true")
                 .when()
                 .delete(RESOURCE_PATH);
     }
 
     protected void deleteFolderFromTrash(String resource) {
-        List<Map<String, Object>> items = RestAssured.given()
-                .spec(requestSpec)
-                .when()
-                .get(RESOURCE_TRASH_PATH)
-                .then()
-                .extract().path("_embedded.items");
-
-        String folderPath = items.stream()
-                .filter(item -> resource.equals(item.get("name")))
-                .map(item -> (String) item.get("path"))
-                .findFirst()
-                .orElse(null);
+        String folderPath = getTrashFolderPath(resource);
 
         RestAssured.given()
                 .spec(requestSpec)
@@ -172,21 +165,7 @@ public abstract class BaseTest {
         return statusCode == 200;
     }
 
-//    protected boolean isResourceExistsInTrash(String resource) {
-//        List<Map<String, Object>> items = RestAssured.given()
-//                .spec(requestSpec)
-//                .get(RESOURCE_TRASH_PATH)
-//                .then()
-//                .extract().path("_embedded.items");
-//
-//        if (!items.isEmpty()) {
-//            String folderPath = items.stream()
-//                    .filter(item -> resource.equals(item.get("name")))
-//                    .map(item -> (String) item.get("path"))
-//                    .findFirst()
-//                    .orElse(null);
-//        }
-//
-//
-//    }
+    protected boolean isResourceExistsInTrash(String resource) {
+        return getTrashFolderPath(resource) != null;
+    }
 }

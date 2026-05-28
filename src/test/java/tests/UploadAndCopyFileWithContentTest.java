@@ -7,7 +7,7 @@ import utils.FileFactory;
 import java.nio.file.Path;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.instanceOf;
 
 public class UploadAndCopyFileWithContentTest extends BaseTest {
 
@@ -47,8 +47,9 @@ public class UploadAndCopyFileWithContentTest extends BaseTest {
                 .post(COPY_RESOURCE_PATH)
                 .then()
                 .statusCode(201)
-                .body("method", notNullValue())
-                .body("href", notNullValue());
+                .body("method", instanceOf(String.class))
+                .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s%%2F%s"
+                        .formatted(OUTPUT_FOLDER_NAME, FILE_NAME)));
 
         // Повторить копирование файла в папку OUTPUT_FOLDER_NAME
         RestAssured.given()
@@ -58,7 +59,6 @@ public class UploadAndCopyFileWithContentTest extends BaseTest {
                 .when()
                 .post(COPY_RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(409)
                 .body("error", equalTo("DiskResourceAlreadyExistsError"))
                 .body("description", equalTo("Resource \"%s/%s\" already exists.".formatted(OUTPUT_FOLDER_NAME, FILE_NAME)))

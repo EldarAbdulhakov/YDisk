@@ -9,35 +9,21 @@ import static org.hamcrest.Matchers.*;
 public class RecoveryFolderTest extends BaseTest {
 
     @Test
-    public void testRestoreFolderFromTrash() {
+    public void testRestoreEmptyFolderFromTrash() {
         createFolder(FOLDER_NAME);
         deleteFolderToTrash(FOLDER_NAME);
 
         String folderPath = getTrashFolderPath(FOLDER_NAME);
 
-        Response response = RestAssured.given()
+        RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", folderPath)
                 .when()
                 .put(RESTORE_FROM_TRASH_PATH)
                 .then()
-                .log().all()
-                .extract().response();
-
-        if (response.statusCode() == 202) {
-            response
-                    .then()
-                    .body("method", equalTo("GET"))
-                    .body("href", startsWith("https://cloud-api.yandex.net/v1/disk/operations/"));
-
-            waitForOperationComplete(response.jsonPath().getString("href"));
-        } else {
-            response
-                    .then()
-                    .statusCode(201)
-                    .body("method", instanceOf(String.class))
-                    .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s".formatted(FOLDER_NAME)));
-        }
+                .statusCode(201)
+                .body("method", instanceOf(String.class))
+                .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s".formatted(FOLDER_NAME)));
     }
 
     @Test
@@ -49,29 +35,17 @@ public class RecoveryFolderTest extends BaseTest {
         String folderPath = getTrashFolderPath(FOLDER_NAME);
 
         Response response = RestAssured.given()
-                .log().all()
                 .spec(requestSpec)
                 .queryParam("path", folderPath)
                 .when()
                 .put(RESTORE_FROM_TRASH_PATH)
                 .then()
-                .log().all()
+                .statusCode(202)
+                .body("method", equalTo("GET"))
+                .body("href", startsWith("https://cloud-api.yandex.net/v1/disk/operations/"))
                 .extract().response();
 
-        if (response.statusCode() == 202) {
-            response
-                    .then()
-                    .body("method", equalTo("GET"))
-                    .body("href", startsWith("https://cloud-api.yandex.net/v1/disk/operations/"));
-
             waitForOperationComplete(response.jsonPath().getString("href"));
-        } else {
-            response
-                    .then()
-                    .statusCode(201)
-                    .body("method", instanceOf(String.class))
-                    .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s".formatted(FOLDER_NAME)));
-        }
     }
 
     @Test
@@ -87,7 +61,6 @@ public class RecoveryFolderTest extends BaseTest {
                 .when()
                 .put(RESTORE_FROM_TRASH_PATH)
                 .then()
-                .log().all()
                 .statusCode(401)
                 .body("error", equalTo("UnauthorizedError"))
                 .body("description", equalTo("Unauthorized"))
@@ -102,7 +75,6 @@ public class RecoveryFolderTest extends BaseTest {
                 .when()
                 .put(RESTORE_FROM_TRASH_PATH)
                 .then()
-                .log().all()
                 .statusCode(404)
                 .body("error", equalTo("DiskNotFoundError"))
                 .body("description", equalTo("Resource not found."))

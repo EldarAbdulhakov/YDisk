@@ -14,7 +14,6 @@ public class GetDiskInfoTest extends BaseTest {
                 .when()
                 .get(DISK_PATH)
                 .then()
-                .log().all()
                 .statusCode(200)
                 .body("user.login", equalTo(CONFIG.getLogin()))
                 .body("user.display_name", equalTo(CONFIG.getDisplayName()));
@@ -27,7 +26,6 @@ public class GetDiskInfoTest extends BaseTest {
                 .when()
                 .get(DISK_PATH)
                 .then()
-                .log().all()
                 .statusCode(401)
                 .body("error", equalTo("UnauthorizedError"))
                 .body("description", equalTo("Unauthorized"))

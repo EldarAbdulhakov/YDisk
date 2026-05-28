@@ -9,19 +9,18 @@ public class CreateFolderTest extends BaseTest {
 
     @Test
     public void testCreateFolderInRootDirectory() {
-//        registerCreatedResource(FOLDER_NAME);
-
-        RestAssured.given()
+                RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", FOLDER_NAME)
                 .when()
                 .put(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(201)
                 .body("method", equalTo("GET"))
                 .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s".formatted(FOLDER_NAME)))
                 .body("templated", equalTo(false));
+
+        registerCreatedResource(FOLDER_NAME);
     }
 
     @Test
@@ -30,11 +29,10 @@ public class CreateFolderTest extends BaseTest {
 
         RestAssured.given()
                 .spec(requestSpec)
-                .queryParam("path", FOLDER_NAME + "/" + NESTED_FOLDER)
+                .queryParam("path", "%s/%s".formatted(FOLDER_NAME, NESTED_FOLDER))
                 .when()
                 .put(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(201)
                 .body("method", equalTo("GET"))
                 .body("href", equalTo("https://cloud-api.yandex.net/v1/disk/resources?path=disk%%3A%%2F%s%%2F%s".formatted(FOLDER_NAME, NESTED_FOLDER)))
@@ -51,7 +49,6 @@ public class CreateFolderTest extends BaseTest {
                 .when()
                 .put(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(409)
                 .body("error", equalTo("DiskPathPointsToExistentDirectoryError"))
                 .body("description", equalTo("Specified path \"%s\" points to existent directory.".formatted(FOLDER_NAME)))

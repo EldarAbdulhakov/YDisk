@@ -1,6 +1,7 @@
 package tests;
 
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
@@ -9,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class DeleteFolderTest extends BaseTest {
 
     @Test
-    public void testDeleteFolderToTrash() {
+    public void testDeleteEmptyFolderToTrash() {
         createFolder(FOLDER_NAME);
 
         RestAssured.given()
@@ -18,12 +19,11 @@ public class DeleteFolderTest extends BaseTest {
                 .when()
                 .delete(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(204);
     }
 
     @Test
-    public void testDeleteFolderPermanently() {
+    public void testDeleteEmptyFolderPermanently() {
         createFolder(FOLDER_NAME);
 
         RestAssured.given()
@@ -33,26 +33,27 @@ public class DeleteFolderTest extends BaseTest {
                 .when()
                 .delete(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(204);
     }
 
     @Test
     public void testDeleteFolderWithNestedFolderToTrash() {
         createFolder(FOLDER_NAME);
-        createFolder(FOLDER_NAME + "/" + NESTED_FOLDER);
+        createFolder("%s/%s".formatted(FOLDER_NAME, NESTED_FOLDER));
 
-        RestAssured.given()
+        Response response = RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", FOLDER_NAME)
                 .when()
                 .delete(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(202)
                 .body("method", equalTo("GET"))
                 .body("href", containsString("https://cloud-api.yandex.net/v1/disk/operations/"))
-                .body("templated", equalTo(false));
+                .body("templated", equalTo(false))
+                .extract().response();
+
+        waitForOperationComplete(response.jsonPath().getString("href"));
     }
 
     @Test
@@ -63,7 +64,6 @@ public class DeleteFolderTest extends BaseTest {
                 .when()
                 .delete(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(404)
                 .body("error", equalTo("DiskNotFoundError"))
                 .body("description", equalTo("Resource not found."))
@@ -80,7 +80,6 @@ public class DeleteFolderTest extends BaseTest {
                 .when()
                 .delete(RESOURCE_PATH)
                 .then()
-                .log().all()
                 .statusCode(401)
                 .body("error", equalTo("UnauthorizedError"))
                 .body("description", equalTo("Unauthorized"))
