@@ -2,6 +2,7 @@ package tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
@@ -10,6 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class DeleteFolderTest extends BaseTest {
 
     @Test
+    @DisplayName("TC-2.1 Удаление пустой папки в корзину возвращает 204")
     public void testDeleteEmptyFolderToTrash() {
         createFolder(FOLDER_NAME);
 
@@ -23,6 +25,7 @@ public class DeleteFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-2.2 Безвозвратное удаление пустой папки возвращает 204")
     public void testDeleteEmptyFolderPermanently() {
         createFolder(FOLDER_NAME);
 
@@ -37,6 +40,7 @@ public class DeleteFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-2.3 Удаление папки с вложенной папкой в корзину возвращает 202")
     public void testDeleteFolderWithNestedFolderToTrash() {
         createFolder(FOLDER_NAME);
         createFolder("%s/%s".formatted(FOLDER_NAME, NESTED_FOLDER));
@@ -57,6 +61,7 @@ public class DeleteFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-2.4 Удаление несуществующей папки в корзину возвращает 404")
     public void testDeleteNonExistentFolderToTrash() {
         RestAssured.given()
                 .spec(requestSpec)
@@ -71,6 +76,7 @@ public class DeleteFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-2.5 Удаление папки без токена авторизации возвращает 401")
     public void testDeleteFolderWithoutOAuthToken() {
         createFolder(FOLDER_NAME);
 

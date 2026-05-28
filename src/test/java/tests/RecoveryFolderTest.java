@@ -2,6 +2,7 @@ package tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
@@ -9,6 +10,7 @@ import static org.hamcrest.Matchers.*;
 public class RecoveryFolderTest extends BaseTest {
 
     @Test
+    @DisplayName("TC-3.1 Восстановление пустой папки из корзины возвращает 201")
     public void testRestoreEmptyFolderFromTrash() {
         createFolder(FOLDER_NAME);
         deleteFolderToTrash(FOLDER_NAME);
@@ -27,6 +29,7 @@ public class RecoveryFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-3.2 Восстановление папки с вложенной папкой из корзины возвращает 202")
     public void testRestoreFolderWithNestedFolderFromTrash() {
         createFolder(FOLDER_NAME);
         createFolder("%s/%s".formatted(FOLDER_NAME, NESTED_FOLDER));
@@ -49,6 +52,7 @@ public class RecoveryFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-3.3 Восстановление папки из корзины без токена авторизации возвращает 401")
     public void testRestoreFolderFromTrashWithoutAuthToken() {
         createFolder(FOLDER_NAME);
         deleteFolderToTrash(FOLDER_NAME);
@@ -68,6 +72,7 @@ public class RecoveryFolderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("TC-3.4 Восстановление несуществующей папки из корзины возвращает 404")
     public void testRestoreNonExistentFolder() {
         RestAssured.given()
                 .spec(requestSpec)

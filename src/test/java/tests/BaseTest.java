@@ -136,22 +136,30 @@ public abstract class BaseTest {
     }
 
     protected void deleteResourcePermanently(String resourcePath) {
-        RestAssured.given()
+        Response response = RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", resourcePath)
                 .queryParam("permanently", "true")
                 .when()
                 .delete(RESOURCE_PATH);
+
+        if (response.statusCode() == 202) {
+            waitForOperationComplete(response.jsonPath().getString("href"));
+        }
     }
 
     protected void deleteFolderFromTrash(String resource) {
         String folderPath = getTrashFolderPath(resource);
 
-        RestAssured.given()
+        Response response = RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", folderPath)
                 .when()
                 .delete(RESOURCE_TRASH_PATH);
+
+        if (response.statusCode() == 202) {
+            waitForOperationComplete(response.jsonPath().getString("href"));
+        }
     }
 
     protected boolean isResourceExists(String path) {
