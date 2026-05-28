@@ -28,13 +28,11 @@ public abstract class BaseTest {
             """;
     protected static final String DISK_PATH = "/v1/disk";
     protected static final String RESOURCE_PATH = "v1/disk/resources";
-    protected static final String TRASH_PATH = "v1/disk/trash/resources";
+    protected static final String RESOURCE_TRASH_PATH = "v1/disk/trash/resources";
     protected static final String RESTORE_FROM_TRASH_PATH = "v1/disk/trash/resources/restore";
-    protected static final String UPLOAD_RESOURCE_PATH = "v1/disk/resources/upload?path=%s";
-    protected static final String NESTED_UPLOAD_RESOURCE_PATH = "v1/disk/resources/upload?path=%s/%s";
+    protected static final String UPLOAD_RESOURCE_PATH = "v1/disk/resources/upload";
     protected static final String COPY_RESOURCE_PATH = "v1/disk/resources/copy";
     protected static final String DOWNLOAD_RESOURCE_PATH = "v1/disk/resources/download";
-    protected static final String TRASH_RESOURCES_PATH = "v1/disk/trash/resources?path=%s";
 
     protected static RequestSpecification requestSpec;
     protected static RequestSpecification requestSpecWithoutAuth;
@@ -123,7 +121,7 @@ public abstract class BaseTest {
         List<Map<String, Object>> items = RestAssured.given()
                 .spec(requestSpec)
                 .when()
-                .get(TRASH_PATH)
+                .get(RESOURCE_TRASH_PATH)
                 .then()
                 .extract().path("_embedded.items");
 
@@ -146,7 +144,7 @@ public abstract class BaseTest {
         List<Map<String, Object>> items = RestAssured.given()
                 .spec(requestSpec)
                 .when()
-                .get(TRASH_PATH)
+                .get(RESOURCE_TRASH_PATH)
                 .then()
                 .extract().path("_embedded.items");
 
@@ -158,8 +156,9 @@ public abstract class BaseTest {
 
         RestAssured.given()
                 .spec(requestSpec)
+                .queryParam("path", folderPath)
                 .when()
-                .delete(TRASH_RESOURCES_PATH.formatted(folderPath));
+                .delete(RESOURCE_TRASH_PATH);
     }
 
     protected boolean isResourceExists(String path) {
@@ -176,7 +175,7 @@ public abstract class BaseTest {
 //    protected boolean isResourceExistsInTrash(String resource) {
 //        List<Map<String, Object>> items = RestAssured.given()
 //                .spec(requestSpec)
-//                .get(TRASH_PATH)
+//                .get(RESOURCE_TRASH_PATH)
 //                .then()
 //                .extract().path("_embedded.items");
 //

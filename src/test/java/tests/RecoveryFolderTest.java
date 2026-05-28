@@ -43,7 +43,7 @@ public class RecoveryFolderTest extends BaseTest {
     @Test
     public void testRestoreFolderWithNestedFolderFromTrash() {
         createFolder(FOLDER_NAME);
-        createFolder(FOLDER_NAME + "/" + NESTED_FOLDER);
+        createFolder("%s/%s".formatted(FOLDER_NAME, NESTED_FOLDER));
         deleteFolderToTrash(FOLDER_NAME);
 
         String folderPath = getTrashFolderPath(FOLDER_NAME);

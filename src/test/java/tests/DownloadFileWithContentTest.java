@@ -19,7 +19,9 @@ public class DownloadFileWithContentTest extends BaseTest {
         // Получить ссылку на загрузку файла
         String uploadHref = RestAssured.given()
                 .spec(requestSpec)
-                .get(NESTED_UPLOAD_RESOURCE_PATH.formatted(FOLDER_NAME, FILE_NAME))
+                .queryParam("path", "%s/%s".formatted(FOLDER_NAME, FILE_NAME))
+                .when()
+                .get(UPLOAD_RESOURCE_PATH)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -29,6 +31,7 @@ public class DownloadFileWithContentTest extends BaseTest {
         RestAssured.given()
                 .spec(requestSpec)
                 .body(file.toFile())
+                .when()
                 .put(uploadHref)
                 .then()
                 .statusCode(201);
@@ -36,7 +39,8 @@ public class DownloadFileWithContentTest extends BaseTest {
         // Получить ссылку на скачивание
         String downloadHref = RestAssured.given()
                 .spec(requestSpec)
-                .queryParam("path", FOLDER_NAME + "/" + FILE_NAME)
+                .queryParam("path", "%s/%s".formatted(FOLDER_NAME, FILE_NAME))
+                .when()
                 .get(DOWNLOAD_RESOURCE_PATH)
                 .then()
                 .statusCode(200)
@@ -47,6 +51,7 @@ public class DownloadFileWithContentTest extends BaseTest {
         // Скачать и прочитать файл
         String actualText = RestAssured.given()
                 .urlEncodingEnabled(false)
+                .when()
                 .get(downloadHref)
                 .then()
                 .log().all()

@@ -11,12 +11,15 @@ public class CreateFileTest extends BaseTest {
     public void testCreateTextFileInRoot() {
         String href = RestAssured.given()
                 .spec(requestSpec)
-                .get(UPLOAD_RESOURCE_PATH.formatted(FILE_NAME))
+                .queryParam("path", FILE_NAME)
+                .when()
+                .get(UPLOAD_RESOURCE_PATH)
                 .then()
                 .extract().path("href");
 
         RestAssured.given()
                 .spec(requestSpec)
+                .when()
                 .put(href)
                 .then()
                 .statusCode(201);
@@ -28,7 +31,9 @@ public class CreateFileTest extends BaseTest {
 
         String href = RestAssured.given()
                 .spec(requestSpec)
-                .get(NESTED_UPLOAD_RESOURCE_PATH.formatted(FOLDER_NAME, FILE_NAME))
+                .queryParam("path", "%s/%s".formatted(FOLDER_NAME, FILE_NAME))
+                .when()
+                .get(UPLOAD_RESOURCE_PATH)
                 .then()
                 .extract().path("href");
 
@@ -43,7 +48,9 @@ public class CreateFileTest extends BaseTest {
     public void testCreateTextFileWithoutOAuthToken() {
         RestAssured.given()
                 .spec(requestSpecWithoutAuth)
-                .get(UPLOAD_RESOURCE_PATH.formatted(FILE_NAME))
+                .queryParam("path", FILE_NAME)
+                .when()
+                .get(UPLOAD_RESOURCE_PATH)
                 .then()
                 .statusCode(401)
                 .body("error", equalTo("UnauthorizedError"))
