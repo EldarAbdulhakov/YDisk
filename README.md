@@ -31,10 +31,15 @@
 
 1. Склонируйте к себе репозиторий, в котором хранится проект тестового задания. В командной строке/терминале выполните команду
 
-       git clone https://github.com/EldarAbdulhakov/qa-internship-task
+       git clone https://github.com/EldarAbdulhakov/YDisk
 
-2. В папке resources скопируйте config.properties.template в config.properties  
-   (В папке resources создайте файл config.properties, скопируйте в него данные из config.properties.template)
+2. Настройте конфигурацию:  
+* Способ 1 (ручной):  
+В папке resources (src/test/resources/) создайте файл config.properties, скопируйте в него данные из config.properties.template  
+* Способ 2 (через терминал):   
+   Для Windows: copy src\test\resources\config.properties.template src\test\resources\config.properties  
+   Для Mac/Linux: cp src/test/resources/config.properties.template src/test/resources/config.properties
+
 3. Впишите свой токен Яндекс API в config.properties: yandex.auth.token=<ваш токен Яндекс API>  
 Получение токена:  
 
