@@ -10,7 +10,7 @@
 5. Папка отсутствует в корневом каталоге на диске
 
 Шаги:
-1. Отправить PUT запрос:  
+1. Отправить PUT запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -33,7 +33,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить PUT запрос:  
+1. Отправить PUT запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName/nestedFolder
 
 Ожидаемый результат:
@@ -55,7 +55,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName/nestedFolder
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить PUT запрос:  
+1. Отправить PUT запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -71,7 +71,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 ## TC-1.4 Создание папки без OAuth токена возвращает 401
 
 Шаги:
-1. Отправить PUT запрос без OAuth токена:    
+1. Отправить PUT запрос без OAuth токена по адресу:    
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -97,7 +97,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить DELETE запрос:  
+1. Отправить DELETE запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -113,7 +113,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить DELETE запрос:  
+1. Отправить DELETE запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName&permanently=true
 
 Ожидаемый результат:
@@ -129,7 +129,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName&permanently=true
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить DELETE запрос  
+1. Отправить DELETE запрос по адресу:   
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -152,7 +152,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Шаги:
 1. Убедиться, что папки folderName не существует
-2. Отправить DELETE запрос:  
+2. Отправить DELETE запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -171,7 +171,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 1. Создать папку folderName (см. ТС-1.1)
 
 Шаги:
-1. Отправить DELETE запрос без OAuth токена:  
+1. Отправить DELETE запрос без OAuth токена по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
@@ -197,7 +197,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос на получение данных из корзины:
+1. Отправить GET запрос на получение данных из корзины по адресу:
 https://cloud-api.yandex.net/v1/disk/trash/resources  
 JSON-ответ body (пример):
 
@@ -240,7 +240,7 @@ JSON-ответ body (пример):
        }
 
 2. Найти и скопировать в теле ответа значение поля “path”, в котором присутствует имя папки folderName
-3. Отправить PUT запрос: 
+3. Отправить PUT запрос по адресу: 
 https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},   
 где folderPath = trash:/folderName_49a0555683a24276d7438d884b73ae0cbd53578e - “path” из пункта 2
 
@@ -264,7 +264,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос на получение данных из корзины:
+1. Отправить GET запрос на получение данных из корзины по адресу:
 https://cloud-api.yandex.net/v1/disk/trash/resources  
 JSON-ответ body (пример):
 
@@ -306,7 +306,7 @@ JSON-ответ body (пример):
           "origin_path": null
        }
 2. Найти и скопировать в теле ответа значение поля “path”, в котором присутствует имя папки folderName
-3. Отправить PUT запрос:  
+3. Отправить PUT запрос по адресу:  
 https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},   
 где folderPath = trash:/folderName_49a0555683a24276d7438d884b73ae0cbd53578e - “path” из пункта 2
 
@@ -330,7 +330,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос на получение данных из корзины:    
+1. Отправить GET запрос на получение данных из корзины по адресу:    
 https://cloud-api.yandex.net/v1/disk/trash/resources
 JSON-ответ body:
 
@@ -372,7 +372,7 @@ JSON-ответ body:
           "origin_path": null
        }
 2. Найти и скопировать в теле ответа значение поля “path”, в котором присутствует имя папки folderName
-3. Отправить PUT запрос без токена авторизации:  
+3. Отправить PUT запрос без токена авторизации по адресу:  
 https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},   
 где folderPath = trash:/folderName_49a0555683a24276d7438d884b73ae0cbd53578e - “path” из пункта 2
 
@@ -395,7 +395,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},
 4. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить PUT запрос с несуществующим ресурсом:  
+1. Отправить PUT запрос с несуществующим ресурсом по адресу:  
 https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path=notExistfolderName
 
 Ожидаемый результат:
@@ -420,7 +420,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path=notExistfolder
 4. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
+1. Отправить GET запрос для получение ссылки "href" для загрузки файла по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources/upload?path=data.txt  
 JSON-ответ body:
        
@@ -430,8 +430,9 @@ JSON-ответ body:
           "templated": false,
           "operation_id": "44103b0715bb99324ab22a98e228c3447b0d586cd9f6cf3723e043901b2c59a4"
        }
-2. Отправить PUT запрос с полученным href (PUT<href>):  
+2. Отправить PUT запрос с полученным href (PUT<href>) по адресу:  
 https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810
+В body включить файл data.txt
 
 Ожидаемый результат:
 1. Статус код 201
@@ -446,7 +447,7 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
+1. Отправить GET запрос для получение ссылки "href" для загрузки файла по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources/upload?path=folderName/data.txt   
 JSON-ответ body:  
 
@@ -456,8 +457,9 @@ JSON-ответ body:
           "templated": false,
           "operation_id": "44103b0715bb99324ab22a98e228c3447b0d586cd9f6cf3723e043901b2c59a4"
        }
-2. Отправить PUT запрос с полученным href (PUT<href>):   
+2. Отправить PUT запрос с полученным href (PUT<href>) по адресу:   
 https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810
+В body включить файл data.txt
 
 Ожидаемый результат:
 1. Статус код 201
@@ -465,10 +467,11 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 ## TC-4.3 Создание текстового файла без токена авторизации возвращает 401
 
 Шаги:
-1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
+1. Отправить GET запрос для получение ссылки "href" для загрузки файла по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources/upload?path=data.txt
-2. Отправить PUT запрос с полученным href (PUT<href>):  
+2. Отправить PUT запрос с полученным href (PUT<href>) по адресу:  
 https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810   
+В body включить файл data.txt  
 
 Ожидаемый результат:
 1. Статус код 401
@@ -494,7 +497,7 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 6. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить GET запрос для получение ссылки "href":  
+1. Отправить GET запрос для получение ссылки "href" по адресу:  
 https://cloud-api.yandex.net/v1/disk/resources/upload?path=input_data/data.txt  
    JSON-ответ body:
 
@@ -505,9 +508,10 @@ https://cloud-api.yandex.net/v1/disk/resources/upload?path=input_data/data.txt
           "operation_id": "44103b0715bb99324ab22a98e228c3447b0d586cd9f6cf3723e043901b2c59a4"
        }  
 
-2. Отправить PUT запрос с полученным href (PUT<href>) для загрузки файла в папку input_data:   
-   https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810  
-3. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt:  
+2. Отправить PUT запрос с полученным href (PUT<href>) для загрузки файла в папку input_data по адресу:   
+   https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810
+   В body включить файл data.txt
+3. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt по адресу:  
    https://cloud-api.yandex.net/v1/disk/resources/copy
 
 Ожидаемый результат:  
@@ -529,7 +533,7 @@ https://cloud-api.yandex.net/v1/disk/resources/upload?path=input_data/data.txt
 5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
 
 Шаги:
-1. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt:  
+1. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt по адресу:  
    https://cloud-api.yandex.net/v1/disk/resources/copy 
 
 Ожидаемый результат:  
@@ -542,6 +546,52 @@ https://cloud-api.yandex.net/v1/disk/resources/upload?path=input_data/data.txt
           "message": "Ресурс \"output_data/data.txt\" уже существует." 
        }  
 
+# 6. Скачивание текстового файла возвращает 200 (GET)
 
-# 6. Получить ссылку на загрузку файла (GET v1/disk/resources/upload)
-## TC-6.1 Получение ссылки на загрузку файла возвращает 200
+## TC-6.1 Скачивание текстового файла возвращает 200
+
+Предусловие:
+1. Создать папку folderName (см. ТС-1.1)
+2. Авторизоваться в Яндекс ID
+3. Перейти в Полигон по ссылке: https://yandex.ru/dev/disk/poligon/
+4. Получить токен, нажав на кнопку “Получить OAuth-токен”
+5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
+6. Сгенерировать текстовый файл data.txt с данными:  
+          
+       username=Petr
+       password=secret_key
+
+Шаги:
+1. Отправить GET запрос для получение ссылки "href" по адресу:  
+   https://cloud-api.yandex.net/v1/disk/resources/upload?path=folderName/data.txt  
+   JSON-ответ body:
+
+       {
+          "method": "PUT",
+          "href": "https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810",
+          "templated": false,
+          "operation_id": "44103b0715bb99324ab22a98e228c3447b0d586cd9f6cf3723e043901b2c59a4"
+       }  
+2. Отправить PUT запрос с полученным href (PUT<href>) для загрузки файла в папку folderName:   
+   https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810  
+В body включить файл data.txt
+3. Получить ссылку "href" на скачивание файла data.txt GET запросом по адресу:  
+   https://cloud-api.yandex.net/v1/disk/resources/download  
+   В запросе использовать параметр: path=folderName/data.txt  
+   JSON-ответ body:  
+
+       {
+          "method": "GET",
+          "href": "https://downloader.disk.yandex.ru/disk/f185090229890f6ed65e03bc5a61dcda338a6666e62ee37b89f95aed6de16632/6a19a03c/K5aAbuWDjKwWMEYCHqVBYalNnYyNMvIjv8elByRelNP9vwpm7f1eeqhN5nVzC07EncM-fm4L5ZF8ZsoS5o1_qg%3D%3D?uid=287807606&filename=data.txt&disposition=attachment&hash=&limit=0&content_type=text%2Fplain&owner_uid=287807606&fsize=34&hid=8eeea5b4625547efb2847de7835dc81f&media_type=document&tknv=v3&is_direct_zip_experiment=1&etag=155c21c3766c64acc55f855effb0b409",
+          "templated": false
+       }
+
+4. Скачать и прочитать файл data.txt GET запросом по адресу, полученным в пункте 3:
+   https://downloader.disk.yandex.ru/disk/f185090229890f6ed65e03bc5a61dcda338a6666e62ee37b89f95aed6de16632/6a19a03c/K5aAbuWDjKwWMEYCHqVBYalNnYyNMvIjv8elByRelNP9vwpm7f1eeqhN5nVzC07EncM-fm4L5ZF8ZsoS5o1_qg%3D%3D?uid=287807606&filename=data.txt&disposition=attachment&hash=&limit=0&content_type=text%2Fplain&owner_uid=287807606&fsize=34&hid=8eeea5b4625547efb2847de7835dc81f&media_type=document&tknv=v3&is_direct_zip_experiment=1&etag=155c21c3766c64acc55f855effb0b409
+
+Ожидаемый результат:
+1. Статус код 200
+2. Ответ в body содержит данные файла data.txt:  
+   
+       username=Petr
+       password=secret_key
