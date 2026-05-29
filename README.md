@@ -36,7 +36,7 @@
 2. Настройте конфигурацию:  
 * Способ 1 (ручной):  
 В папке resources (src/test/resources/) создайте файл config.properties, скопируйте в него данные из config.properties.template  
-* Способ 2 (через терминал):   
+* Способ 2 (выполните команду через терминал):   
    Для Windows: copy src\test\resources\config.properties.template src\test\resources\config.properties  
    Для Mac/Linux: cp src/test/resources/config.properties.template src/test/resources/config.properties
 
