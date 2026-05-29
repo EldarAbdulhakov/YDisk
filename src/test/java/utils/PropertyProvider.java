@@ -31,12 +31,4 @@ public class PropertyProvider {
     public String getBaseUrl() {
         return properties.getProperty("yandex.url");
     }
-
-    public String getLogin() {
-        return properties.getProperty("yandex.login");
-    }
-
-    public String getDisplayName() {
-        return properties.getProperty("yandex.display_name");
-    }
 }

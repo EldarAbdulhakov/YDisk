@@ -11,7 +11,7 @@ public class CreateFolderTest extends BaseTest {
     @Test
     @DisplayName("TC-1.1 Создание папки в корневом каталоге возвращает 201")
     public void testCreateFolderInRootDirectory() {
-                RestAssured.given()
+        RestAssured.given()
                 .spec(requestSpec)
                 .queryParam("path", FOLDER_NAME)
                 .when()

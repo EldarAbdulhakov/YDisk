@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 
-public class UploadAndCopyFileWithContentTest extends BaseTest {
+public class CopyFileTest extends BaseTest {
 
     @Test
     @DisplayName("TC-5.1 Копирование текстового файла между папками возвращает 201")
