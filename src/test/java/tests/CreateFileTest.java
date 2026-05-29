@@ -11,18 +11,12 @@ public class CreateFileTest extends BaseTest {
     @Test
     @DisplayName("TC-4.1 Создание текстового файла в корневой директории возвращает 201")
     public void testCreateTextFileInRoot() {
-        String href = RestAssured.given()
-                .spec(requestSpec)
-                .queryParam("path", FILE_NAME)
-                .when()
-                .get(UPLOAD_RESOURCE_PATH)
-                .then()
-                .extract().path("href");
+        String fileUploadLink = getFileUploadLink(FILE_NAME);
 
         RestAssured.given()
                 .spec(requestSpec)
                 .when()
-                .put(href)
+                .put(fileUploadLink)
                 .then()
                 .statusCode(201);
 
@@ -33,18 +27,11 @@ public class CreateFileTest extends BaseTest {
     @DisplayName("TC-4.2 Создание текстового файла в папке возвращает 201")
     public void testCreateTextFileInFolder() {
         createFolder(FOLDER_NAME);
-
-        String href = RestAssured.given()
-                .spec(requestSpec)
-                .queryParam("path", "%s/%s".formatted(FOLDER_NAME, FILE_NAME))
-                .when()
-                .get(UPLOAD_RESOURCE_PATH)
-                .then()
-                .extract().path("href");
+        String fileUploadLink = getFileUploadLink("%s/%s".formatted(FOLDER_NAME, FILE_NAME));
 
         RestAssured.given()
                 .spec(requestSpec)
-                .put(href)
+                .put(fileUploadLink)
                 .then()
                 .statusCode(201);
 

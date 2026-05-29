@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import utils.PropertyProvider;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -175,5 +176,25 @@ public abstract class BaseTest {
 
     protected boolean isResourceExistsInTrash(String resource) {
         return getTrashFolderPath(resource) != null;
+    }
+
+    protected String getFileUploadLink(String path) {
+        return RestAssured.given()
+                .spec(requestSpec)
+                .queryParam("path", path)
+                .when()
+                .get(UPLOAD_RESOURCE_PATH)
+                .then()
+                .extract()
+                .path("href");
+    }
+
+    protected void uploadFileToFolder(Path file, String fileUploadLink) {
+        RestAssured.given()
+                .spec(requestSpec)
+                .body(file.toFile())
+                .when()
+                .put(fileUploadLink)
+                .then();
     }
 }

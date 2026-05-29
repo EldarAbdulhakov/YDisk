@@ -22,7 +22,6 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
           "href": "https://cloud-api.yandex.net/v1/disk/resources?path=disk%3A%2FfolderName",
           "templated": false
        }
-3. Папка folderName создана на диске
 
 ## TC-1.2 Создание вложенной папки возвращает 201
 
@@ -39,8 +38,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName/nestedFolder
 
 Ожидаемый результат:
 1. Статус код 201
-2. Вложенная папка nestedFolder создана внутри родительской folderName
-3. JSON-ответ body:
+2. JSON-ответ body:
         
        {
           "method": "GET",
@@ -69,7 +67,6 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
           "description": "Specified path \"folderName\" points to existent directory.",
           "message": "По указанному пути \"folderName\" уже существует папка с таким именем."
        }
-3. Вторая папка folderName не создана на диске
 
 ## TC-1.4 Создание папки без OAuth токена возвращает 401
 
@@ -105,7 +102,6 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
 1. Статус код 204
-2. Папка folderName перемещена в корзину
 
 ## TC-2.2 Безвозвратное удаление пустой папки возвращает 204
 
@@ -122,8 +118,6 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName&permanently=true
 
 Ожидаемый результат:
 1. Статус код 204
-2. Папка folderName удалена
-3. Папка folderName не появляется в корзине
 
 ## TC-2.3 Удаление папки с вложенной папкой в корзину возвращает 202 
 
@@ -139,9 +133,8 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName&permanently=true
 https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
-1. Статус код 202 
-2. Папка folderName с вложенной папкой перемещена в корзину
-3. JSON-ответ body:
+1. Статус код 202
+2. JSON-ответ body:
 
        {
           "method": "GET",
@@ -183,8 +176,7 @@ https://cloud-api.yandex.net/v1/disk/resources?path=folderName
 
 Ожидаемый результат:
 1. Статус код 401
-2. Папка folderName не удалена
-3. JSON-ответ body:
+2. JSON-ответ body:
 
        {
            "error": "UnauthorizedError",
@@ -246,6 +238,7 @@ JSON-ответ body (пример):
           "exif": {},
           "origin_path": null
        }
+
 2. Найти и скопировать в теле ответа значение поля “path”, в котором присутствует имя папки folderName
 3. Отправить PUT запрос: 
 https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},   
@@ -253,9 +246,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},
 
 Ожидаемый результат:
 1. Статус код 201
-2. Папка folderName восстановлена на исходное место
-3. В корзине папка  folderName отсутствует
-4. JSON-ответ body:
+2. JSON-ответ body:
 
        {
           "method": "GET",
@@ -321,9 +312,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path={folderPath},
 
 Ожидаемый результат:
 1. Статус код 202
-2. Папка folderName восстановлена на исходное место
-3. В корзине папка  folderName отсутствует
-4. JSON-ответ body:
+2. JSON-ответ body:
 
        {
           "method": "GET",
@@ -432,7 +421,7 @@ https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path=notExistfolder
 
 Шаги:
 1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
-https://cloud-api.yandex.net/v1/disk/resources/upload?path=empty.txt  
+https://cloud-api.yandex.net/v1/disk/resources/upload?path=data.txt  
 JSON-ответ body:
        
        {
@@ -446,7 +435,6 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 
 Ожидаемый результат:
 1. Статус код 201
-2. Файл empty.txt создан на диске в корневом каталоге
 
 ## TC-4.2 Создание текстового файла в папке возвращает 201
 
@@ -459,7 +447,7 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 
 Шаги:
 1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
-https://cloud-api.yandex.net/v1/disk/resources/upload?path=folderName/empty.txt   
+https://cloud-api.yandex.net/v1/disk/resources/upload?path=folderName/data.txt   
 JSON-ответ body:  
 
        {
@@ -473,13 +461,12 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 
 Ожидаемый результат:
 1. Статус код 201
-2. Файл empty.txt создан на диске в папке folderName
 
 ## TC-4.3 Создание текстового файла без токена авторизации возвращает 401
 
 Шаги:
 1. Отправить GET запрос для получение ссылки "href" для загрузки файла:  
-https://cloud-api.yandex.net/v1/disk/resources/upload?path=empty.txt
+https://cloud-api.yandex.net/v1/disk/resources/upload?path=data.txt
 2. Отправить PUT запрос с полученным href (PUT<href>):  
 https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810   
 
@@ -498,5 +485,63 @@ https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.
 
 ## TC-5.1 Копирование текстового файла между папками возвращает 201
 
+Предусловие:
+1. Создать папку input_data (см. ТС-1.1)
+2. Создать папку output_data (см. ТС-1.1)
+3. Авторизоваться в Яндекс ID
+4. Перейти в Полигон по ссылке: https://yandex.ru/dev/disk/poligon/
+5. Получить токен, нажав на кнопку “Получить OAuth-токен”
+6. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
+
+Шаги:
+1. Отправить GET запрос для получение ссылки "href":  
+https://cloud-api.yandex.net/v1/disk/resources/upload?path=input_data/data.txt  
+   JSON-ответ body:
+
+       {
+          "method": "PUT",
+          "href": "https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810",
+          "templated": false,
+          "operation_id": "44103b0715bb99324ab22a98e228c3447b0d586cd9f6cf3723e043901b2c59a4"
+       }  
+
+2. Отправить PUT запрос с полученным href (PUT<href>) для загрузки файла в папку input_data:   
+   https://uploader23klg.disk.yandex.net:443/upload-target/20260129T003203.012.utd.6pf838xwxxkuta4jk560iujj4-k23klg.3683810  
+3. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt:  
+   https://cloud-api.yandex.net/v1/disk/resources/copy
+
+Ожидаемый результат:  
+1. Статус код 201
+2. JSON-ответ body:
+
+       {
+          "method": (string): <HTTP-метод>,
+          "href": "https://cloud-api.yandex.net/v1/disk/resources?path=disk%3A%2Foutput_data%2Fdata.txt"
+       }  
 
 ## TC-5.2 Копирование текстового файла в папку, содержащую файл с тем же именем, возвращает 409
+
+Предусловие:
+1. Копировать текстовый файл между папками(см. ТС-5.1)
+2. Авторизоваться в Яндекс ID
+3. Перейти в Полигон по ссылке: https://yandex.ru/dev/disk/poligon/
+4. Получить токен, нажав на кнопку “Получить OAuth-токен”
+5. В заголовке (Headers) добавить OAuth-токен: Authorization: OAuth auth_token
+
+Шаги:
+1. Отправить POST запрос, с параметрами from=input_data/data.txt и path=output_data/data.txt:  
+   https://cloud-api.yandex.net/v1/disk/resources/copy 
+
+Ожидаемый результат:  
+1. Статус код 409  
+2. JSON-ответ body:  
+
+       {
+          "error": "DiskResourceAlreadyExistsError",
+          "description": "Resource \"output_data/data.txt\" already exists.",
+          "message": "Ресурс \"output_data/data.txt\" уже существует." 
+       }  
+
+
+# 6. Получить ссылку на загрузку файла (GET v1/disk/resources/upload)
+## TC-6.1 Получение ссылки на загрузку файла возвращает 200
