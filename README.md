@@ -31,7 +31,7 @@
 
 1. Склонируйте к себе репозиторий, в котором хранится проект тестового задания. В командной строке/терминале выполните команду
 
-       git clone https://github.com/EldarAbdulhakov/qa-internship-task
+       git clone https://github.com/EldarAbdulhakov/YDisk
 
 2. В папке resources скопируйте config.properties.template в config.properties  
    (В папке resources создайте файл config.properties, скопируйте в него данные из config.properties.template)
