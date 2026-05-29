@@ -35,7 +35,12 @@
 
 2. В папке resources скопируйте config.properties.template в config.properties  
    (В папке resources создайте файл config.properties, скопируйте в него данные из config.properties.template)
-3. Впишите свой токен Яндекс API в config.properties: yandex.auth.token=<ваш токен Яндекс API> 
+3. Впишите свой токен Яндекс API в config.properties: yandex.auth.token=<ваш токен Яндекс API>  
+Получение токена:  
+
+       1. Авторизоваться в Яндекс ID
+       2. Перейти в Полигон по ссылке: https://yandex.ru/dev/disk/poligon/
+       3. Получить токен, нажав на кнопку “Получить OAuth-токен”
 4. Убедитесь, что на вашем компьютере установлена Java 21. В командной строке/терминале выполните команду
 
        java -version
